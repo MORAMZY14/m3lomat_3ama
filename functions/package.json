@@ -1,0 +1,22 @@
+{
+  "name": "ma3lomat-firebase-functions",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "node -e \"console.log('JavaScript functions: no build required')\"",
+    "serve": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions,firestore:rules,firestore:indexes",
+    "set-admin": "node scripts/set-admin.js",
+    "seed-demo": "node scripts/seed-demo.js",
+    "migrate-postgres": "node scripts/migrate-postgres.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0",
+    "firebase-functions": "^6.4.0",
+    "openai": "^5.20.0",
+    "pg": "^8.16.3"
+  }
+}

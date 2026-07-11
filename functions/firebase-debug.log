@@ -1,0 +1,422 @@
+[debug] [2026-07-11T13:25:54.621Z] ----------------------------------------------------------------------
+[debug] [2026-07-11T13:25:54.624Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2026-07-11T13:25:54.624Z] CLI Version:   15.23.0
+[debug] [2026-07-11T13:25:54.624Z] Platform:      win32
+[debug] [2026-07-11T13:25:54.624Z] Node Version:  v26.4.0
+[debug] [2026-07-11T13:25:54.624Z] Detected Agent: unknown
+[debug] [2026-07-11T13:25:54.624Z] Time:          Sat Jul 11 2026 16:25:54 GMT+0300 (Eastern European Summer Time)
+[debug] [2026-07-11T13:25:54.624Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-07-11T13:25:55.562Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"flutter"}
+[debug] [2026-07-11T13:25:55.565Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-11T13:25:55.565Z] > authorizing via signed-in user (mudyramzy@gmail.com)
+[debug] [2026-07-11T13:25:55.565Z] [iam] checking project m3lomat-3ama for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2026-07-11T13:25:55.579Z] Checked if tokens are valid: false, expires at: 1783776807810
+[debug] [2026-07-11T13:25:55.579Z] Checked if tokens are valid: false, expires at: 1783776807810
+[debug] [2026-07-11T13:25:55.579Z] > refreshing access token with scopes: []
+[debug] [2026-07-11T13:25:55.581Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-11T13:25:55.581Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-11T13:25:55.853Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-11T13:25:55.854Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-11T13:25:55.862Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions [none]
+[debug] [2026-07-11T13:25:55.862Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:25:55.862Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-07-11T13:25:56.741Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions 200
+[debug] [2026-07-11T13:25:56.741Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-07-11T13:25:56.741Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:56.741Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:56.741Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-07-11T13:25:56.741Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-07-11T13:25:57.625Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-07-11T13:25:57.625Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'm3lomat-3ama'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] +  functions: Finished running predeploy script. 
+[debug] [2026-07-11T13:25:58.009Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:58.009Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:58.009Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama [none]
+[debug] [2026-07-11T13:25:58.227Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama 200
+[debug] [2026-07-11T13:25:58.227Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama {"projectNumber":"1040382356758","projectId":"m3lomat-3ama","lifecycleState":"ACTIVE","name":"m3lomat-3ama","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-07-11T12:14:22.690Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2026-07-11T13:25:58.229Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:58.230Z] Checked if tokens are valid: true, expires at: 1783779954854
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-07-11T13:25:58.230Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:58.230Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:58.230Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/cloudbuild.googleapis.com [none]
+[debug] [2026-07-11T13:25:58.230Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/cloudbuild.googleapis.com  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:25:58.232Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/artifactregistry.googleapis.com [none]
+[debug] [2026-07-11T13:25:58.232Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/artifactregistry.googleapis.com  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:25:59.321Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/artifactregistry.googleapis.com 200
+[debug] [2026-07-11T13:25:59.321Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/artifactregistry.googleapis.com [omitted]
+[warn] !  artifactregistry: missing required API artifactregistry.googleapis.com. Enabling now... 
+[debug] [2026-07-11T13:25:59.321Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:59.321Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:59.322Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/artifactregistry.googleapis.com:enable [none]
+[debug] [2026-07-11T13:25:59.322Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/artifactregistry.googleapis.com:enable  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:25:59.402Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/cloudbuild.googleapis.com 200
+[debug] [2026-07-11T13:25:59.402Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/cloudbuild.googleapis.com [omitted]
+[warn] !  functions: missing required API cloudbuild.googleapis.com. Enabling now... 
+[debug] [2026-07-11T13:25:59.403Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:59.403Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:25:59.403Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/cloudbuild.googleapis.com:enable [none]
+[debug] [2026-07-11T13:25:59.403Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/cloudbuild.googleapis.com:enable  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:26:00.090Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/cloudbuild.googleapis.com:enable 200
+[debug] [2026-07-11T13:26:00.090Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/cloudbuild.googleapis.com:enable [omitted]
+[debug] [2026-07-11T13:26:00.815Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/artifactregistry.googleapis.com:enable 200
+[debug] [2026-07-11T13:26:00.815Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/artifactregistry.googleapis.com:enable [omitted]
+[debug] [2026-07-11T13:26:10.820Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:26:10.820Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:26:10.820Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig [none]
+[debug] [2026-07-11T13:26:11.345Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig 200
+[debug] [2026-07-11T13:26:11.345Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig {"projectId":"m3lomat-3ama","storageBucket":"m3lomat-3ama.firebasestorage.app"}
+[debug] [2026-07-11T13:26:11.346Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:26:11.346Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:26:11.346Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs [none]
+[debug] [2026-07-11T13:26:11.787Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs 200
+[debug] [2026-07-11T13:26:11.787Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs {}
+[debug] [2026-07-11T13:26:11.787Z] Validating nodejs source
+[warn] !  functions: Couldn't find firebase-functions package in your source code. Have you run 'npm install'? 
+[debug] [2026-07-11T13:26:11.788Z] getFunctionsSDKVersion encountered error: Cannot find module 'firebase-functions'
+Require stack:
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\versioning.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorShared.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js {"code":"MODULE_NOT_FOUND","requireStack":["C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\node\\versioning.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\node\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\prepare.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\emulator\\functionsEmulatorShared.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\frameworks\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\hosting\\prepare.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\hosting\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\commands\\deploy.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\commands\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\bin\\cli.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\bin\\firebase.js"]}
+[debug] [2026-07-11T13:26:11.793Z] checkFunctionsSDKVersion encountered error: Invalid Version:  {}
+[debug] [2026-07-11T13:26:11.794Z] > [functions] package.json contents: {
+  "name": "ma3lomat-firebase-functions",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "node -e \"console.log('JavaScript functions: no build required')\"",
+    "serve": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions,firestore:rules,firestore:indexes",
+    "set-admin": "node scripts/set-admin.js",
+    "seed-demo": "node scripts/seed-demo.js",
+    "migrate-postgres": "node scripts/migrate-postgres.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0",
+    "firebase-functions": "^6.4.0",
+    "openai": "^5.20.0",
+    "pg": "^8.16.3"
+  }
+}
+[debug] [2026-07-11T13:26:11.794Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2026-07-11T13:26:11.794Z] Could not parse firebase-functions version '' into semver.
+[debug] [2026-07-11T13:26:11.795Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-07-11T13:26:11.971Z] Error: Cannot find module 'firebase-functions'
+Require stack:
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorShared.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1568:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1122:27)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1173:12)
+    at require.resolve (node:internal/modules/helpers:209:31)
+    at Delegate.findFunctionsBinary (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:100:33)
+    at Delegate.spawnFunctionsProcess (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:130:30)
+    at Delegate.serveAdmin (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:151:35)
+    at Delegate.discoverBuild (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:191:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async loadCodebases (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js:482:33)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-07-11T13:32:43.546Z] ----------------------------------------------------------------------
+[debug] [2026-07-11T13:32:43.549Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2026-07-11T13:32:43.549Z] CLI Version:   15.23.0
+[debug] [2026-07-11T13:32:43.549Z] Platform:      win32
+[debug] [2026-07-11T13:32:43.550Z] Node Version:  v22.23.1
+[debug] [2026-07-11T13:32:43.550Z] Detected Agent: unknown
+[debug] [2026-07-11T13:32:43.550Z] Time:          Sat Jul 11 2026 16:32:43 GMT+0300 (Eastern European Summer Time)
+[debug] [2026-07-11T13:32:43.550Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-07-11T13:32:44.829Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"flutter"}
+[debug] [2026-07-11T13:32:44.832Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-11T13:32:44.833Z] > authorizing via signed-in user (mudyramzy@gmail.com)
+[debug] [2026-07-11T13:32:44.833Z] [iam] checking project m3lomat-3ama for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2026-07-11T13:32:44.846Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:44.846Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:44.847Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions [none]
+[debug] [2026-07-11T13:32:44.848Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:32:44.848Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-07-11T13:32:45.766Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions 200
+[debug] [2026-07-11T13:32:45.767Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-07-11T13:32:45.767Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:45.767Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:45.767Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-07-11T13:32:45.767Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-07-11T13:32:46.679Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-07-11T13:32:46.679Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'm3lomat-3ama'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] +  functions: Finished running predeploy script. 
+[debug] [2026-07-11T13:32:47.098Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:47.098Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:47.098Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama [none]
+[debug] [2026-07-11T13:32:47.299Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama 200
+[debug] [2026-07-11T13:32:47.299Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama {"projectNumber":"1040382356758","projectId":"m3lomat-3ama","lifecycleState":"ACTIVE","name":"m3lomat-3ama","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-07-11T12:14:22.690Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-07-11T13:32:47.302Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:47.302Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:47.302Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig [none]
+[debug] [2026-07-11T13:32:47.855Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig 200
+[debug] [2026-07-11T13:32:47.855Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig {"projectId":"m3lomat-3ama","storageBucket":"m3lomat-3ama.firebasestorage.app"}
+[debug] [2026-07-11T13:32:47.856Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:47.856Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:32:47.856Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs [none]
+[debug] [2026-07-11T13:32:48.324Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs 200
+[debug] [2026-07-11T13:32:48.324Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs {}
+[debug] [2026-07-11T13:32:48.325Z] Validating nodejs source
+[warn] !  functions: Couldn't find firebase-functions package in your source code. Have you run 'npm install'? 
+[debug] [2026-07-11T13:32:48.325Z] getFunctionsSDKVersion encountered error: Cannot find module 'firebase-functions'
+Require stack:
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\versioning.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorShared.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js {"code":"MODULE_NOT_FOUND","requireStack":["C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\node\\versioning.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\node\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\runtimes\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\functions\\prepare.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\emulator\\functionsEmulatorShared.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\frameworks\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\hosting\\prepare.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\hosting\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\deploy\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\commands\\deploy.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\commands\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\index.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\bin\\cli.js","C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\firebase-tools\\lib\\bin\\firebase.js"]}
+[debug] [2026-07-11T13:32:48.326Z] checkFunctionsSDKVersion encountered error: Invalid Version:  {}
+[debug] [2026-07-11T13:32:48.327Z] > [functions] package.json contents: {
+  "name": "ma3lomat-firebase-functions",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "node -e \"console.log('JavaScript functions: no build required')\"",
+    "serve": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions,firestore:rules,firestore:indexes",
+    "set-admin": "node scripts/set-admin.js",
+    "seed-demo": "node scripts/seed-demo.js",
+    "migrate-postgres": "node scripts/migrate-postgres.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0",
+    "firebase-functions": "^6.4.0",
+    "openai": "^5.20.0",
+    "pg": "^8.16.3"
+  }
+}
+[debug] [2026-07-11T13:32:48.327Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2026-07-11T13:32:48.327Z] Could not parse firebase-functions version '' into semver.
+[debug] [2026-07-11T13:32:48.328Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-07-11T13:32:48.596Z] Error: Cannot find module 'firebase-functions'
+Require stack:
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorShared.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\prepare.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\hosting\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\index.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\cli.js
+- C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at Function.resolve (node:internal/modules/helpers:157:19)
+    at Delegate.findFunctionsBinary (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:100:33)
+    at Delegate.spawnFunctionsProcess (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:130:30)
+    at Delegate.serveAdmin (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:151:35)
+    at Delegate.discoverBuild (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\runtimes\node\index.js:191:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async loadCodebases (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js:482:33)
+    at async prepare (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\prepare.js:162:24)
+    at async chain (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:45:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-07-11T13:38:24.231Z] ----------------------------------------------------------------------
+[debug] [2026-07-11T13:38:24.234Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2026-07-11T13:38:24.234Z] CLI Version:   15.23.0
+[debug] [2026-07-11T13:38:24.234Z] Platform:      win32
+[debug] [2026-07-11T13:38:24.234Z] Node Version:  v22.23.1
+[debug] [2026-07-11T13:38:24.235Z] Detected Agent: unknown
+[debug] [2026-07-11T13:38:24.235Z] Time:          Sat Jul 11 2026 16:38:24 GMT+0300 (Eastern European Summer Time)
+[debug] [2026-07-11T13:38:24.235Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-07-11T13:38:25.525Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"flutter"}
+[debug] [2026-07-11T13:38:25.528Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-11T13:38:25.528Z] > authorizing via signed-in user (mudyramzy@gmail.com)
+[debug] [2026-07-11T13:38:25.528Z] [iam] checking project m3lomat-3ama for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2026-07-11T13:38:25.540Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:25.540Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:25.541Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions [none]
+[debug] [2026-07-11T13:38:25.541Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:38:25.542Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-07-11T13:38:26.463Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions 200
+[debug] [2026-07-11T13:38:26.464Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2026-07-11T13:38:26.464Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:26.464Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:26.464Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-07-11T13:38:26.464Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-07-11T13:38:27.337Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-07-11T13:38:27.338Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/m3lomat-3ama/serviceAccounts/m3lomat-3ama@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'm3lomat-3ama'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] +  functions: Finished running predeploy script. 
+[debug] [2026-07-11T13:38:27.773Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:27.773Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:27.774Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama [none]
+[debug] [2026-07-11T13:38:27.996Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama 200
+[debug] [2026-07-11T13:38:27.996Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama {"projectNumber":"1040382356758","projectId":"m3lomat-3ama","lifecycleState":"ACTIVE","name":"m3lomat-3ama","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-07-11T12:14:22.690Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-07-11T13:38:28.000Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:28.000Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:28.000Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig [none]
+[debug] [2026-07-11T13:38:28.522Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig 200
+[debug] [2026-07-11T13:38:28.522Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/m3lomat-3ama/adminSdkConfig {"projectId":"m3lomat-3ama","storageBucket":"m3lomat-3ama.firebasestorage.app"}
+[debug] [2026-07-11T13:38:28.522Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:28.522Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:28.522Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs [none]
+[debug] [2026-07-11T13:38:28.976Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs 200
+[debug] [2026-07-11T13:38:28.976Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/m3lomat-3ama/configs {}
+[debug] [2026-07-11T13:38:28.977Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2026-07-11T13:38:29.856Z] > [functions] package.json contents: {
+  "name": "ma3lomat-firebase-functions",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "node -e \"console.log('JavaScript functions: no build required')\"",
+    "serve": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions,firestore:rules,firestore:indexes",
+    "set-admin": "node scripts/set-admin.js",
+    "seed-demo": "node scripts/seed-demo.js",
+    "migrate-postgres": "node scripts/migrate-postgres.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0",
+    "firebase-functions": "^6.4.0",
+    "openai": "^5.20.0",
+    "pg": "^8.16.3"
+  }
+}
+[debug] [2026-07-11T13:38:29.856Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2026-07-11T13:38:29.857Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-07-11T13:38:29.865Z] Found firebase-functions binary at 'C:\Users\Admin\StudioProjects\m3lomat_3ama\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8227
+
+[debug] [2026-07-11T13:38:30.328Z] Got response from /__/functions.yaml {"endpoints":{"createChallenge":{"availableMemoryMb":256,"timeoutSeconds":30,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"labels":{},"callableTrigger":{},"entryPoint":"createChallenge"},"challenge":{"availableMemoryMb":256,"timeoutSeconds":30,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"labels":{},"httpsTrigger":{},"entryPoint":"challenge"},"resetUsedQuestions":{"availableMemoryMb":256,"timeoutSeconds":120,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"labels":{},"callableTrigger":{},"entryPoint":"resetUsedQuestions"},"generateQuestions":{"availableMemoryMb":512,"timeoutSeconds":180,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"secretEnvironmentVariables":[{"key":"OPENAI_API_KEY"}],"labels":{},"callableTrigger":{},"entryPoint":"generateQuestions"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{},"params":[{"type":"secret","name":"OPENAI_API_KEY"},{"name":"OPENAI_MODEL","type":"string","default":"gpt-5.2"},{"name":"PUBLIC_BASE_URL","type":"string","default":""}]}
+[debug] [2026-07-11T13:38:33.358Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:33.359Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:33.359Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/m3lomat-3ama/locations/-/functions [none]
+[debug] [2026-07-11T13:38:34.163Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/m3lomat-3ama/locations/-/functions 200
+[debug] [2026-07-11T13:38:34.163Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/m3lomat-3ama/locations/-/functions {}
+[debug] [2026-07-11T13:38:34.163Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:34.163Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:34.163Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/m3lomat-3ama/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2026-07-11T13:38:35.145Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/m3lomat-3ama/locations/-/functions 200
+[debug] [2026-07-11T13:38:35.145Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/m3lomat-3ama/locations/-/functions {}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2026-07-11T13:38:35.146Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:35.146Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:35.146Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/firebaseextensions.googleapis.com [none]
+[debug] [2026-07-11T13:38:35.146Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/firebaseextensions.googleapis.com  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:38:36.187Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/firebaseextensions.googleapis.com 200
+[debug] [2026-07-11T13:38:36.187Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/firebaseextensions.googleapis.com [omitted]
+[warn] !  extensions: missing required API firebaseextensions.googleapis.com. Enabling now... 
+[debug] [2026-07-11T13:38:36.188Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:36.188Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:36.188Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/firebaseextensions.googleapis.com:enable [none]
+[debug] [2026-07-11T13:38:36.188Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/firebaseextensions.googleapis.com:enable  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:38:36.974Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/firebaseextensions.googleapis.com:enable 200
+[debug] [2026-07-11T13:38:36.974Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/m3lomat-3ama/services/firebaseextensions.googleapis.com:enable [omitted]
+[debug] [2026-07-11T13:38:46.981Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-11T13:38:46.981Z] > authorizing via signed-in user (mudyramzy@gmail.com)
+[debug] [2026-07-11T13:38:46.981Z] [iam] checking project m3lomat-3ama for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2026-07-11T13:38:46.981Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:46.981Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:46.981Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions [none]
+[debug] [2026-07-11T13:38:46.981Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions  x-goog-user-project=m3lomat-3ama
+[debug] [2026-07-11T13:38:46.981Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2026-07-11T13:38:47.785Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions 200
+[debug] [2026-07-11T13:38:47.785Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/m3lomat-3ama:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2026-07-11T13:38:47.785Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:47.785Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:47.785Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/m3lomat-3ama/instances pageSize=100&pageToken=
+[debug] [2026-07-11T13:38:49.764Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/m3lomat-3ama/instances 200
+[debug] [2026-07-11T13:38:49.764Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/m3lomat-3ama/instances {}
+[debug] [2026-07-11T13:38:49.765Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:49.765Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:49.765Z] >>> [apiv2][query] GET https://secretmanager.googleapis.com/v1/projects/m3lomat-3ama/secrets/OPENAI_API_KEY [none]
+[debug] [2026-07-11T13:38:50.255Z] <<< [apiv2][status] GET https://secretmanager.googleapis.com/v1/projects/m3lomat-3ama/secrets/OPENAI_API_KEY 200
+[debug] [2026-07-11T13:38:50.256Z] <<< [apiv2][body] GET https://secretmanager.googleapis.com/v1/projects/m3lomat-3ama/secrets/OPENAI_API_KEY {"name":"projects/1040382356758/secrets/OPENAI_API_KEY","replication":{"automatic":{}},"createTime":"2026-07-11T13:01:38.250222Z","labels":{"firebase-managed":"functions"},"etag":"\"1656557536a427\""}
+[debug] [2026-07-11T13:38:50.256Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:50.256Z] Checked if tokens are valid: true, expires at: 1783779954854
+[debug] [2026-07-11T13:38:50.256Z] >>> [apiv2][query] GET https://secretmanager.googleapis.com/v1/projects/m3lomat-3ama/secrets/OPENAI_API_KEY/versions/latest [none]
+[debug] [2026-07-11T13:38:50.469Z] <<< [apiv2][status] GET https://secretmanager.googleapis.com/v1/projects/m3lomat-3ama/secrets/OPENAI_API_KEY/versions/latest 200
+[debug] [2026-07-11T13:38:50.469Z] <<< [apiv2][body] GET https://secretmanager.googleapis.com/v1/projects/m3lomat-3ama/secrets/OPENAI_API_KEY/versions/latest {"name":"projects/1040382356758/secrets/OPENAI_API_KEY/versions/2","createTime":"2026-07-11T13:04:50.175050Z","state":"ENABLED","replicationStatus":{"automatic":{}},"etag":"\"165655809bec4a\""}
+[debug] [2026-07-11T13:39:14.889Z] ExitPromptError: User force closed the prompt with SIGINT
+    at Interface.sigint (C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\@inquirer\core\dist\commonjs\lib\create-prompt.js:101:37)
+    at Interface.emit (node:events:519:28)
+    at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1144:18)
+    at ReadStream.onkeypress (node:internal/readline/interface:271:20)
+    at ReadStream.emit (node:events:531:35)
+    at emitKeys (node:internal/readline/utils:370:14)
+    at emitKeys.next (<anonymous>)
+    at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
+    at ReadStream.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+[error] 
+[error] Error: An unexpected error has occurred.
