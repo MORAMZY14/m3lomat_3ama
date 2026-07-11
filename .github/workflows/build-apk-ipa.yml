@@ -147,7 +147,7 @@ jobs:
           retention-days: 14
 
   # ------------------------------------------------
-  # 3. Build unsigned iOS IPA with CocoaPods
+  # 3. Build unsigned iOS IPA using CocoaPods
   # ------------------------------------------------
   build-ios:
     name: 🍎 iOS IPA
@@ -167,37 +167,50 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Force CocoaPods dependency management
+      - name: Disable Swift Package Manager
         run: flutter config --no-enable-swift-package-manager
 
       - name: Show Flutter information
         run: flutter doctor -v
 
-      - name: Generate missing iOS files
+      - name: Generate iOS project if missing
         shell: bash
         run: |
           set -euo pipefail
 
-          if [ ! -f "ios/Runner.xcodeproj/project.pbxproj" ]; then
+          if [ ! -f "ios/Runner.xcodeproj/project.pbxproj" ] || [ ! -s "ios/Podfile" ]; then
             flutter create --platforms=ios .
           fi
 
-          # A missing or invalid Podfile caused the previous non-standard
-          # CocoaPods integration. Recreate it with the Flutter template.
-          if [ ! -s "ios/Podfile" ] || ! grep -q "flutter_install_all_ios_pods" ios/Podfile; then
-            rm -f ios/Podfile
-            flutter create --platforms=ios .
-          fi
+          test -f ios/Runner.xcodeproj/project.pbxproj
+          test -s ios/Podfile
 
-          if [ ! -s "ios/Podfile" ]; then
-            echo "Flutter did not generate ios/Podfile."
+      - name: Validate Podfile
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if grep -q "use_modular_headers!" ios/Podfile; then
+            echo "Remove use_modular_headers! from ios/Podfile."
             exit 1
           fi
 
-      - name: Remove stale iOS build and CocoaPods files
+          if grep -E -q "Firebase(Core|Auth|Firestore|Storage|Functions|SharedSwift).*10\.22\.0|FirebaseSDKVersion.*10\.22\.0" ios/Podfile; then
+            echo "Remove manually pinned Firebase 10.22.0 pods from ios/Podfile."
+            exit 1
+          fi
+
+          if ! grep -E -q "use_frameworks![[:space:]]*:linkage[[:space:]]*=>[[:space:]]*:dynamic" ios/Podfile; then
+            echo "ios/Podfile must contain: use_frameworks! :linkage => :dynamic"
+            exit 1
+          fi
+
+      - name: Completely clean iOS dependencies
         shell: bash
         run: |
           set -euo pipefail
+
+          flutter clean
 
           rm -rf build/ios
           rm -rf ios/Pods
@@ -207,16 +220,18 @@ jobs:
           rm -f ios/Flutter/Generated.xcconfig
           rm -f ios/Flutter/flutter_export_environment.sh
 
+          rm -rf "$HOME/Library/Developer/Xcode/DerivedData"
+          rm -rf "$HOME/Library/Caches/CocoaPods"
+
       - name: Install Flutter dependencies
         shell: bash
         run: |
           set -euo pipefail
 
-          flutter clean
           flutter pub get
           flutter precache --ios
 
-      - name: Restore standard CocoaPods xcconfig includes
+      - name: Restore standard Flutter xcconfig files
         shell: bash
         run: |
           set -euo pipefail
@@ -238,25 +253,21 @@ jobs:
           #include "Generated.xcconfig"
           EOF
 
-      - name: Remove old CocoaPods integration
+      - name: Reinstall CocoaPods dependencies
         shell: bash
         run: |
           set -euo pipefail
 
           cd ios
+
           pod deintegrate || true
+          pod cache clean --all || true
           rm -rf Pods
           rm -f Podfile.lock
 
-      - name: Install CocoaPods dependencies
-        shell: bash
-        run: |
-          set -euo pipefail
+          pod install --repo-update --clean-install
 
-          cd ios
-          pod install --repo-update
-
-      - name: Verify CocoaPods installation
+      - name: Verify CocoaPods integration
         shell: bash
         run: |
           set -euo pipefail
@@ -265,21 +276,16 @@ jobs:
           test -f ios/Runner.xcworkspace/contents.xcworkspacedata
           test -d "ios/Pods/Target Support Files/Pods-Runner"
 
-          echo "CocoaPods support files:"
-          find "ios/Pods/Target Support Files/Pods-Runner" \
-            -maxdepth 1 \
-            -type f \
-            -print
-
-      - name: Verify no Windows Flutter path remains
-        shell: bash
-        run: |
-          set -euo pipefail
-
           if grep -R -n -F 'E:\flutter' ios 2>/dev/null; then
             echo "A stale Windows Flutter path still exists in the iOS project."
             exit 1
           fi
+
+          echo "Pods-Runner support files:"
+          find "ios/Pods/Target Support Files/Pods-Runner" \
+            -maxdepth 1 \
+            -type f \
+            -print
 
       - name: Build unsigned iOS application
         shell: bash
@@ -355,8 +361,8 @@ jobs:
             - Android APK
             - Unsigned iOS IPA
 
-            The IPA is not signed and cannot be installed normally on an iPhone
-            or uploaded to TestFlight until Apple code signing is configured.
+            The IPA is unsigned. Apple code signing is required for normal
+            installation, TestFlight, or App Store distribution.
           files: |
             release-files/*.apk
             release-files/*.ipa
