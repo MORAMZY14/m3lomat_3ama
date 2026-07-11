@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() && request.auth.token.admin == true;
+    }
+
+    match /categoryGroups/{documentId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /categories/{documentId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /questions/{documentId} {
+      allow read: if signedIn();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() ||
+        (signedIn() &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used', 'usedAt']));
+    }
+
+    match /audioQuestions/{documentId} {
+      allow read: if signedIn();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() ||
+        (signedIn() &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used', 'usedAt']));
+    }
+
+    // Challenge documents are accessed only by trusted Cloud Functions.
+    match /challenges/{documentId} {
+      allow read, write: if false;
+    }
+  }
+}
