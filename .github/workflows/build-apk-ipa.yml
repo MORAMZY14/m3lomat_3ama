@@ -6,215 +6,249 @@ on:
 permissions:
   contents: write
 
-# Prevent two manual release runs from incrementing the same version at once.
 concurrency:
-  group: ma3lomat-release
+  group: build-release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  # ---------------------------------------------------------
-  # 1. Increment version in pubspec.yaml, commit it, and tag it
-  # ---------------------------------------------------------
+  # ------------------------------------------------
+  # 1. Increment pubspec version, commit, and tag
+  # ------------------------------------------------
   update-version:
     name: 🔢 Auto-increment version
     runs-on: ubuntu-latest
+
     outputs:
-      new_version: ${{ steps.bump.outputs.version }}
-      new_build: ${{ steps.bump.outputs.build }}
-      new_tag: ${{ steps.bump.outputs.tag }}
+      new_version: ${{ steps.bump.outputs.new_version }}
+      new_build: ${{ steps.bump.outputs.new_build }}
+      new_tag: ${{ steps.bump.outputs.new_tag }}
 
     steps:
-      - name: Checkout default branch
-        uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
 
-      - name: Increment patch and build numbers
+      - name: Read and increment pubspec version
         id: bump
         shell: bash
         run: |
-          python3 <<'PY'
-          import os
-          import re
-          from pathlib import Path
+          set -euo pipefail
 
-          pubspec = Path("pubspec.yaml")
-          text = pubspec.read_text(encoding="utf-8")
+          CURRENT_VERSION="$(grep -E '^version:' pubspec.yaml | head -n 1 | sed -E 's/^version:[[:space:]]*//')"
 
-          match = re.search(
-              r"(?m)^version:\s*(\d+)\.(\d+)\.(\d+)(?:\+(\d+))?\s*$",
-              text,
-          )
-          if not match:
-              raise SystemExit(
-                  "Could not find a version line such as version: 1.0.0+1 "
-                  "in pubspec.yaml"
-              )
+          if [[ ! "$CURRENT_VERSION" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)\+([0-9]+)$ ]]; then
+            echo "Invalid pubspec version: $CURRENT_VERSION"
+            echo "Expected format: version: 1.0.0+1"
+            exit 1
+          fi
 
-          major, minor, patch = map(int, match.group(1, 2, 3))
-          old_build = int(match.group(4) or 0)
+          MAJOR="${BASH_REMATCH[1]}"
+          MINOR="${BASH_REMATCH[2]}"
+          PATCH="${BASH_REMATCH[3]}"
+          BUILD="${BASH_REMATCH[4]}"
 
-          new_version = f"{major}.{minor}.{patch + 1}"
-          new_build = old_build + 1
-          new_tag = f"v{new_version}"
-          new_line = f"version: {new_version}+{new_build}"
+          NEW_PATCH=$((PATCH + 1))
+          NEW_BUILD=$((BUILD + 1))
+          NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+          NEW_TAG="v${NEW_VERSION}"
 
-          updated = text[:match.start()] + new_line + text[match.end():]
-          pubspec.write_text(updated, encoding="utf-8")
+          if git rev-parse "$NEW_TAG" >/dev/null 2>&1; then
+            echo "Tag $NEW_TAG already exists."
+            exit 1
+          fi
 
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"version={new_version}\n")
-              output.write(f"build={new_build}\n")
-              output.write(f"tag={new_tag}\n")
+          sed -i -E "s/^version:.*/version: ${NEW_VERSION}+${NEW_BUILD}/" pubspec.yaml
 
-          print(f"New Flutter version: {new_version}+{new_build}")
-          print(f"New Git tag: {new_tag}")
-          PY
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+          echo "new_build=$NEW_BUILD" >> "$GITHUB_OUTPUT"
+          echo "new_tag=$NEW_TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Commit version and create tag
+          echo "Old version: $CURRENT_VERSION"
+          echo "New version: ${NEW_VERSION}+${NEW_BUILD}"
+          echo "New tag: $NEW_TAG"
+
+      - name: Commit version bump
         shell: bash
         run: |
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add pubspec.yaml
-          git commit -m "chore: bump version to ${{ steps.bump.outputs.version }}+${{ steps.bump.outputs.build }}"
-          git tag -a "${{ steps.bump.outputs.tag }}" -m "Release ${{ steps.bump.outputs.tag }}"
+          git commit -m "chore: bump version to ${{ steps.bump.outputs.new_version }}+${{ steps.bump.outputs.new_build }}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
 
-          git push origin "HEAD:${{ github.event.repository.default_branch }}"
-          git push origin "${{ steps.bump.outputs.tag }}"
+      - name: Create and push tag
+        shell: bash
+        run: |
+          set -euo pipefail
 
-  # ---------------------------
+          git tag "${{ steps.bump.outputs.new_tag }}"
+          git push origin "${{ steps.bump.outputs.new_tag }}"
+
+  # ------------------------------------------------
   # 2. Build Android APK
-  # ---------------------------
+  # ------------------------------------------------
   build-apk:
     name: 🤖 Android APK
     runs-on: ubuntu-latest
     needs: update-version
-    timeout-minutes: 45
 
     steps:
-      - name: Checkout release tag
-        uses: actions/checkout@v6
+      - name: Checkout new tag
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.update-version.outputs.new_tag }}
+          fetch-depth: 0
 
-      - name: Set up Java 17
-        uses: actions/setup-java@v5
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
           cache: gradle
 
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
 
-      - name: Show tool versions
-        run: |
-          flutter --version
-          java -version
+      - name: Show Flutter information
+        run: flutter doctor -v
 
-      - name: Install Flutter packages
+      - name: Install Flutter dependencies
         run: flutter pub get
 
       - name: Build release APK
         run: |
-          flutter build apk --release \
+          flutter build apk \
+            --release \
             --build-name="${{ needs.update-version.outputs.new_version }}" \
             --build-number="${{ needs.update-version.outputs.new_build }}"
 
       - name: Rename APK
         shell: bash
         run: |
-          cp build/app/outputs/flutter-apk/app-release.apk \
-             "build/app/outputs/flutter-apk/Ma3lomat-${{ needs.update-version.outputs.new_version }}.apk"
+          set -euo pipefail
+
+          mv \
+            build/app/outputs/flutter-apk/app-release.apk \
+            "build/app/outputs/flutter-apk/Ma3lomat-${{ needs.update-version.outputs.new_version }}.apk"
 
       - name: Upload APK artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
-          name: android-apk
+          name: Ma3lomat-Android-${{ needs.update-version.outputs.new_version }}
           path: build/app/outputs/flutter-apk/Ma3lomat-${{ needs.update-version.outputs.new_version }}.apk
           if-no-files-found: error
           retention-days: 14
-          compression-level: 0
 
-  # ---------------------------
+  # ------------------------------------------------
   # 3. Build unsigned iOS IPA
-  # ---------------------------
+  # ------------------------------------------------
   build-ios:
-    name: 🍎 iOS IPA (unsigned)
+    name: 🍎 iOS IPA
     runs-on: macos-latest
     needs: update-version
-    timeout-minutes: 60
-    env:
-      COCOAPODS_DISABLE_STATS: "true"
 
     steps:
-      - name: Checkout release tag
-        uses: actions/checkout@v6
+      - name: Checkout new tag
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.update-version.outputs.new_tag }}
+          fetch-depth: 0
 
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
 
-      - name: Show tool versions
-        run: |
-          flutter --version
-          xcodebuild -version
-          pod --version
+      - name: Show Flutter information
+        run: flutter doctor -v
 
-      # The uploaded project currently has no ios/Podfile. This generates any
-      # missing iOS scaffold files without replacing lib/ source code.
-      - name: Ensure iOS scaffold exists
+      - name: Generate iOS project if missing
         shell: bash
         run: |
-          if [ ! -f ios/Podfile ]; then
-            echo "ios/Podfile is missing; regenerating missing iOS project files."
+          set -euo pipefail
+
+          if [ ! -f "ios/Runner.xcodeproj/project.pbxproj" ] || [ ! -f "ios/Podfile" ]; then
             flutter create --platforms=ios .
           fi
 
-      - name: Install Flutter packages
-        run: flutter pub get
-
-      - name: Install CocoaPods dependencies
-        working-directory: ios
-        run: pod install --repo-update
-
-      - name: Build iOS app without code signing
+      - name: Remove stale Windows-generated iOS paths
+        shell: bash
         run: |
-          flutter build ios --release --no-codesign \
+          set -euo pipefail
+
+          rm -f ios/Flutter/Generated.xcconfig
+          rm -f ios/Flutter/flutter_export_environment.sh
+          rm -rf ios/Flutter/ephemeral
+          rm -rf ios/Pods
+          rm -rf ios/.symlinks
+          rm -f ios/Podfile.lock
+
+      - name: Install Flutter dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          flutter clean
+          flutter pub get
+          flutter precache --ios
+
+      - name: Verify no Windows Flutter path remains
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if grep -R -n -F 'E:\flutter' ios 2>/dev/null; then
+            echo "A stale Windows Flutter path still exists in the iOS project."
+            exit 1
+          fi
+
+      - name: Build unsigned iOS application
+        run: |
+          flutter build ios \
+            --release \
+            --no-codesign \
             --build-name="${{ needs.update-version.outputs.new_version }}" \
             --build-number="${{ needs.update-version.outputs.new_build }}"
 
-      - name: Package unsigned IPA
+      - name: Create unsigned IPA
         shell: bash
         run: |
+          set -euo pipefail
+
           cd build/ios/iphoneos
+
+          test -d Runner.app
           rm -rf Payload
-          mkdir Payload
-          cp -R Runner.app Payload/
-          zip -qry "Ma3lomat-${{ needs.update-version.outputs.new_version }}-unsigned.ipa" Payload
+          mkdir -p Payload
+          cp -R Runner.app Payload/Runner.app
+
+          ditto \
+            -c \
+            -k \
+            --sequesterRsrc \
+            --keepParent \
+            Payload \
+            "Ma3lomat-${{ needs.update-version.outputs.new_version }}-unsigned.ipa"
 
       - name: Upload IPA artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
-          name: ios-ipa
+          name: Ma3lomat-iOS-${{ needs.update-version.outputs.new_version }}
           path: build/ios/iphoneos/Ma3lomat-${{ needs.update-version.outputs.new_version }}-unsigned.ipa
           if-no-files-found: error
           retention-days: 14
-          compression-level: 0
 
-  # --------------------------------------------------
-  # 4. Create one GitHub Release containing both files
-  # --------------------------------------------------
+  # ------------------------------------------------
+  # 4. Create one GitHub Release with APK and IPA
+  # ------------------------------------------------
   create-release:
     name: 🚀 Create GitHub Release
     runs-on: ubuntu-latest
@@ -225,30 +259,31 @@ jobs:
 
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v4
         with:
-          path: release-assets
+          path: release-files
           merge-multiple: true
 
-      - name: List release files
-        run: find release-assets -maxdepth 2 -type f -print
+      - name: Show release files
+        run: find release-files -maxdepth 2 -type f -print
 
-      - name: Create release and upload APK + IPA
-        uses: softprops/action-gh-release@v3
+      - name: Create release and upload files
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.update-version.outputs.new_tag }}
           name: Ma3lomat ${{ needs.update-version.outputs.new_version }}
-          generate_release_notes: true
-          fail_on_unmatched_files: true
           body: |
-            Flutter version: ${{ needs.update-version.outputs.new_version }}
+            Ma3lomat version ${{ needs.update-version.outputs.new_version }}
+
             Build number: ${{ needs.update-version.outputs.new_build }}
 
-            Files:
-            - Android release APK
-            - Unsigned iOS IPA (must be signed before normal installation or App Store/TestFlight distribution)
+            Included files:
+            - Android APK
+            - Unsigned iOS IPA
+
+            The IPA is not signed and cannot be installed normally on an iPhone
+            or uploaded to TestFlight until Apple code signing is configured.
           files: |
-            release-assets/*.apk
-            release-assets/*.ipa
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            release-files/*.apk
+            release-files/*.ipa
+          fail_on_unmatched_files: true
