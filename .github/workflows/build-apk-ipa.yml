@@ -147,7 +147,7 @@ jobs:
           retention-days: 14
 
   # ------------------------------------------------
-  # 3. Build unsigned iOS IPA
+  # 3. Build unsigned iOS IPA with CocoaPods
   # ------------------------------------------------
   build-ios:
     name: 🍎 iOS IPA
@@ -167,29 +167,45 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Force CocoaPods dependency management
+        run: flutter config --no-enable-swift-package-manager
+
       - name: Show Flutter information
         run: flutter doctor -v
 
-      - name: Generate iOS project if missing
+      - name: Generate missing iOS files
         shell: bash
         run: |
           set -euo pipefail
 
-          if [ ! -f "ios/Runner.xcodeproj/project.pbxproj" ] || [ ! -f "ios/Podfile" ]; then
+          if [ ! -f "ios/Runner.xcodeproj/project.pbxproj" ]; then
             flutter create --platforms=ios .
           fi
 
-      - name: Remove stale Windows-generated iOS paths
+          # A missing or invalid Podfile caused the previous non-standard
+          # CocoaPods integration. Recreate it with the Flutter template.
+          if [ ! -s "ios/Podfile" ] || ! grep -q "flutter_install_all_ios_pods" ios/Podfile; then
+            rm -f ios/Podfile
+            flutter create --platforms=ios .
+          fi
+
+          if [ ! -s "ios/Podfile" ]; then
+            echo "Flutter did not generate ios/Podfile."
+            exit 1
+          fi
+
+      - name: Remove stale iOS build and CocoaPods files
         shell: bash
         run: |
           set -euo pipefail
 
-          rm -f ios/Flutter/Generated.xcconfig
-          rm -f ios/Flutter/flutter_export_environment.sh
-          rm -rf ios/Flutter/ephemeral
+          rm -rf build/ios
           rm -rf ios/Pods
           rm -rf ios/.symlinks
+          rm -rf ios/Flutter/ephemeral
           rm -f ios/Podfile.lock
+          rm -f ios/Flutter/Generated.xcconfig
+          rm -f ios/Flutter/flutter_export_environment.sh
 
       - name: Install Flutter dependencies
         shell: bash
@@ -199,6 +215,61 @@ jobs:
           flutter clean
           flutter pub get
           flutter precache --ios
+
+      - name: Restore standard CocoaPods xcconfig includes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p ios/Flutter
+
+          cat > ios/Flutter/Debug.xcconfig <<'EOF'
+          #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+          #include "Generated.xcconfig"
+          EOF
+
+          cat > ios/Flutter/Release.xcconfig <<'EOF'
+          #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
+          #include "Generated.xcconfig"
+          EOF
+
+          cat > ios/Flutter/Profile.xcconfig <<'EOF'
+          #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"
+          #include "Generated.xcconfig"
+          EOF
+
+      - name: Remove old CocoaPods integration
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cd ios
+          pod deintegrate || true
+          rm -rf Pods
+          rm -f Podfile.lock
+
+      - name: Install CocoaPods dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cd ios
+          pod install --repo-update
+
+      - name: Verify CocoaPods installation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -d ios/Pods
+          test -f ios/Runner.xcworkspace/contents.xcworkspacedata
+          test -d "ios/Pods/Target Support Files/Pods-Runner"
+
+          echo "CocoaPods support files:"
+          find "ios/Pods/Target Support Files/Pods-Runner" \
+            -maxdepth 1 \
+            -type f \
+            -print
 
       - name: Verify no Windows Flutter path remains
         shell: bash
@@ -211,7 +282,10 @@ jobs:
           fi
 
       - name: Build unsigned iOS application
+        shell: bash
         run: |
+          set -euo pipefail
+
           flutter build ios \
             --release \
             --no-codesign \
