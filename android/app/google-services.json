@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1040382356758",
+    "project_id": "m3lomat-3ama",
+    "storage_bucket": "m3lomat-3ama.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040382356758:android:86393436de7a8fbd77b437",
+        "android_client_info": {
+          "package_name": "zoz.production.m3lomat_3ama"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPRtokKrokWFBiQLI8vLH0J3XcgYIGjjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
